@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal weekly budget tracker">
+  <title>Weekly Budget Tracker</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>Weekly Budget</h1>
+      <button type="button" class="btn-icon" id="settings-btn" aria-label="Settings">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+    </header>
+
+    <section class="week-nav" aria-label="Week navigation">
+      <button type="button" class="btn-icon" id="prev-week" aria-label="Previous week">&larr;</button>
+      <div class="week-label" id="week-label"></div>
+      <button type="button" class="btn-icon" id="next-week" aria-label="Next week">&rarr;</button>
+    </section>
+
+    <section class="summary card" aria-label="Budget summary">
+      <div class="summary-amounts">
+        <div class="summary-spent">
+          <span class="label">Tracked spend</span>
+          <span class="value" id="tracked-spent">$0.00</span>
+        </div>
+        <div class="summary-limit">
+          <span class="label">Weekly limit</span>
+          <span class="value" id="weekly-limit-display">$0.00</span>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="remaining-text">$0.00 remaining</span>
+          <span id="percent-text">0%</span>
+        </div>
+      </div>
+
+      <p class="excluded-summary" id="excluded-summary" hidden></p>
+    </section>
+
+    <section class="card">
+      <h2>Add expense</h2>
+      <form id="expense-form" class="expense-form">
+        <div class="form-row">
+          <label for="amount">Amount</label>
+          <input type="number" id="amount" name="amount" min="0.01" step="0.01" required placeholder="0.00">
+        </div>
+        <div class="form-row">
+          <label for="description">Description</label>
+          <input type="text" id="description" name="description" required placeholder="What did you spend on?">
+        </div>
+        <div class="form-row">
+          <label for="date">Date</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+        <div class="form-row checkbox-row">
+          <input type="checkbox" id="excluded" name="excluded">
+          <label for="excluded">Don't count toward weekly limit</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Add expense</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="section-header">
+        <h2>Expenses</h2>
+        <span class="badge" id="expense-count">0</span>
+      </div>
+      <ul class="expense-list" id="expense-list"></ul>
+      <p class="empty-state" id="empty-state">No expenses this week yet.</p>
+    </section>
+  </div>
+
+  <dialog class="modal" id="settings-modal">
+    <form id="settings-form" method="dialog">
+      <h2>Settings</h2>
+      <div class="form-row">
+        <label for="weekly-limit">Weekly limit</label>
+        <input type="number" id="weekly-limit" name="weeklyLimit" min="0" step="0.01" required>
+      </div>
+      <div class="form-row">
+        <label for="week-starts-on">Week starts on</label>
+        <select id="week-starts-on" name="weekStartsOn">
+          <option value="0">Sunday</option>
+          <option value="1">Monday</option>
+          <option value="2">Tuesday</option>
+          <option value="3">Wednesday</option>
+          <option value="4">Thursday</option>
+          <option value="5">Friday</option>
+          <option value="6">Saturday</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="currency">Currency symbol</label>
+        <input type="text" id="currency" name="currency" maxlength="3" required placeholder="$">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="settings-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
